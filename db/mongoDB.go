@@ -30,6 +30,12 @@ func NewMongoDB() (*MongoDB, error) {
 	return &MongoDB{client}, nil
 }
 
+func (m *MongoDB) Query() *mongo.Collection {
+	database := m.client.Database("miBaseDeDatos")
+	collection := database.Collection("miColeccion")
+	return collection
+}
+
 func (m *MongoDB) Close() {
 	if m.client != nil {
 		m.client.Disconnect(context.Background())

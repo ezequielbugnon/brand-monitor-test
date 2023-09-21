@@ -10,10 +10,10 @@ type FiberFramework struct {
 	app        *fiber.App
 }
 
-func NewApp(controller controllers.Controllers) *FiberFramework {
+func NewApp(controller controllers.Controllers, app *fiber.App) *FiberFramework {
 	return &FiberFramework{
 		controller: controller,
-		app:        fiber.New(),
+		app:        app,
 	}
 }
 
@@ -23,11 +23,11 @@ func (f *FiberFramework) Conection() {
 
 func (f *FiberFramework) Controllers() {
 
-	f.app.Get("/", func(c *fiber.Ctx) {
+	f.app.Post("/api/v1/file", func(c *fiber.Ctx) {
 		f.controller.PostFile(c)
 	})
 
-	f.app.Get("/dardo", func(c *fiber.Ctx) {
+	f.app.Get("/api/v1/data", func(c *fiber.Ctx) {
 		f.controller.GetData(c)
 	})
 
